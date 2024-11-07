@@ -1,6 +1,8 @@
 package com.anibalcorral.javatests.util;
 
 
+import java.util.Objects;
+
 public class StringUtil {
 
     public static String repeat(String str, int times){
@@ -11,5 +13,11 @@ public class StringUtil {
         }
         return result;
 
+    }
+    public static boolean isEmpty(String str){
+        if(!Objects.nonNull(str)) return true;
+        if(str.isBlank()) return true;
+        if(str.isEmpty()) return true;
+        return false;
     }
 }
