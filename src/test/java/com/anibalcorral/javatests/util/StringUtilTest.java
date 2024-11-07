@@ -7,13 +7,18 @@ package com.anibalcorral.javatests.util;
  */
 class StringUtilTest {
     public static void main(String[] args) {
-        String result = StringUtil.repeat("Hola",3);
-
-        System.out.println(result);
-        if(result.equals("HolaHolaHola")){
-            System.out.println("OK");
+        assertEquals(StringUtil.repeat("Hola",3), "HolaHolaHola");
+        System.out.println(StringUtil.repeat("Hola",3));
+        if(!StringUtil.repeat("Hola",3).equals("HolaHolaHola")){
+            throw new RuntimeException("ERROR");
         }
 
+
+    }
+    private static void assertEquals(String actual, String expected) {
+        if(!actual.equals(expected)){
+            throw new RuntimeException(actual + " is not equal to " + expected);
+        }
     }
 
 }
