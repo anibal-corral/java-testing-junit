@@ -57,6 +57,13 @@ class IMovieRepositoryImplTest {
         Movie movie = iMovieRepository.findById(2);
         assertThat(movie, is(new Movie(2, "Memento", 113, Genre.THRILLER)));
     }
+    @Test
+    void insert_movie(){
+        Movie movie = new Movie("Power Puff Girls", 132, Genre.COMEDY);
+        iMovieRepository.saveOrUpdate(movie);
+        Movie createdMovie = iMovieRepository.findById(4);
+        assertThat(new Movie(4,"Power Puff Girls", 132, Genre.COMEDY), is(createdMovie));
+    }
 
     @AfterEach
     void tearDown() throws SQLException {
