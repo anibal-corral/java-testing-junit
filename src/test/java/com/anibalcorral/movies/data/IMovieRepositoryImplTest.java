@@ -46,32 +46,42 @@ class IMovieRepositoryImplTest {
         
         Collection<Movie> all = iMovieRepository.findAll();
         assertThat(all, is(Arrays.asList(
-                new Movie(1, "Dark Knight", 152, Genre.ACTION),
-                new Movie(2, "Memento", 113, Genre.THRILLER),
-                new Movie(3, "Matrix", 136, Genre.ACTION),
-                new Movie(4, "Trixies", 146, Genre.ACTION)
+                new Movie(1, "Dark Knight", 152, Genre.ACTION,"Steven Spielberg"),
+                new Movie(2, "Memento", 113, Genre.THRILLER,"Jean-Luc Godard"),
+                new Movie(3, "Matrix", 136, Genre.ACTION,"Stanley Kubrick"),
+                new Movie(4, "Trixies", 146, Genre.ACTION,"Alfred Hitchcock")
+
         )));
+
 
     }
     @Test
     void load_movie_by_id(){
         Movie movie = iMovieRepository.findById(2);
-        assertThat(movie, is(new Movie(2, "Memento", 113, Genre.THRILLER)));
+        assertThat(movie, is(new Movie(2, "Memento", 113, Genre.THRILLER,"Jean-Luc Godard")));
     }
     @Test
     void insert_movie(){
-        Movie movie = new Movie("Power Puff Girls", 132, Genre.COMEDY);
+        Movie movie = new Movie("Power Puff Girls", 132, Genre.COMEDY,"Anastasia Corral");
         iMovieRepository.saveOrUpdate(movie);
         Movie createdMovie = iMovieRepository.findById(5);
-        assertThat(new Movie(5,"Power Puff Girls", 132, Genre.COMEDY), is(createdMovie));
+        assertThat(new Movie(5,"Power Puff Girls", 132, Genre.COMEDY,"Anastasia Corral"), is(createdMovie));
     }
     @Test
     void load_movie_by_name(){
         Collection<Movie> movies = iMovieRepository.findByName("trix");
 
         assertThat(movies, is(Arrays.asList(
-                new Movie(3, "Matrix", 136, Genre.ACTION),
-                new Movie(4, "Trixies", 146, Genre.ACTION)
+                new Movie(3, "Matrix", 136, Genre.ACTION,"Stanley Kubrick"),
+                new Movie(4, "Trixies", 146, Genre.ACTION,"Alfred Hitchcock")
+        )));
+    }
+    @Test
+    void load_movie_by_director(){
+        Collection<Movie> movies = iMovieRepository.findByDirector("spiel");
+
+        assertThat(movies, is(Arrays.asList(
+                new Movie(1, "Dark Knight", 152, Genre.ACTION,"Steven Spielberg")
         )));
     }
 

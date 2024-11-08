@@ -39,9 +39,9 @@ public class IMovieRepositoryImpl implements IMovieRepository {
     @Override
     public void saveOrUpdate(Movie movie) {
         jdbcTemplate.update(
-                "INSERT INTO MOVIES(name,minutes,genre)" +
-                        " values(?,?,?)",
-                movie.getName(), movie.getMinutes(), movie.getGenre().toString());
+                "INSERT INTO MOVIES(name,minutes,genre,director)" +
+                        " values(?,?,?,?)",
+                movie.getName(), movie.getMinutes(), movie.getGenre().toString(),movie.getDirector());
 
     }
     private static RowMapper<Movie> mapper = new RowMapper<Movie>() {
@@ -51,7 +51,8 @@ public class IMovieRepositoryImpl implements IMovieRepository {
                     rs.getInt("id"),
                     rs.getString("name"),
                     rs.getInt("minutes"),
-                    Genre.valueOf(rs.getString("genre"))
+                    Genre.valueOf(rs.getString("genre")),
+                    rs.getString("director")
             );
         }
     };
@@ -59,6 +60,11 @@ public class IMovieRepositoryImpl implements IMovieRepository {
     public Collection<Movie> findByName(String name) {
             String[] args = {"%" + name.toLowerCase() + "%"};
             return jdbcTemplate.query("SELECT * FROM movies WHERE LOWER(name) LIKE ?", args, mapper);
+
+    }
+    public Collection<Movie> findByDirector(String director) {
+        String[] args = {"%" + director.toLowerCase() + "%"};
+        return jdbcTemplate.query("SELECT * FROM movies WHERE LOWER(director) LIKE ?", args, mapper);
 
     }
 }
