@@ -48,7 +48,8 @@ class IMovieRepositoryImplTest {
         assertThat(all, is(Arrays.asList(
                 new Movie(1, "Dark Knight", 152, Genre.ACTION),
                 new Movie(2, "Memento", 113, Genre.THRILLER),
-                new Movie(3, "Matrix", 136, Genre.ACTION)
+                new Movie(3, "Matrix", 136, Genre.ACTION),
+                new Movie(4, "Trixies", 146, Genre.ACTION)
         )));
 
     }
@@ -61,8 +62,17 @@ class IMovieRepositoryImplTest {
     void insert_movie(){
         Movie movie = new Movie("Power Puff Girls", 132, Genre.COMEDY);
         iMovieRepository.saveOrUpdate(movie);
-        Movie createdMovie = iMovieRepository.findById(4);
-        assertThat(new Movie(4,"Power Puff Girls", 132, Genre.COMEDY), is(createdMovie));
+        Movie createdMovie = iMovieRepository.findById(5);
+        assertThat(new Movie(5,"Power Puff Girls", 132, Genre.COMEDY), is(createdMovie));
+    }
+    @Test
+    void load_movie_by_name(){
+        Collection<Movie> movies = iMovieRepository.findByName("trix");
+
+        assertThat(movies, is(Arrays.asList(
+                new Movie(3, "Matrix", 136, Genre.ACTION),
+                new Movie(4, "Trixies", 146, Genre.ACTION)
+        )));
     }
 
     @AfterEach
