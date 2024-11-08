@@ -52,6 +52,7 @@ Collection<Movie> movies = ms.findMoviesByLength(119);
     assertThat(movieIds, CoreMatchers.is(Arrays.asList(2,3,4,5,6)));
 }
 
+
     private static List<Integer> getMovieIds(Collection<Movie> movies) {
         return movies.stream().map(
                 Movie::getId).collect(Collectors.toList());

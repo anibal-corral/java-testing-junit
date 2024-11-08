@@ -22,7 +22,11 @@ public class IMovieRepositoryImpl implements IMovieRepository {
 
     @Override
     public Movie findById(long id) {
-        return null;
+        Object[] filters = {id};
+        return jdbcTemplate.queryForObject(
+                "SELECT * from movies where id = ?",
+                filters,
+                mapper);
     }
 
     @Override
