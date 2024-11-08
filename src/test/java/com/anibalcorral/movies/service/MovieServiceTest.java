@@ -46,7 +46,7 @@ class MovieServiceTest {
     assertThat(movieIds, CoreMatchers.is(Arrays.asList(3,6)));
 }
 @Test
-    public void return_movies_by_lenght(){
+    public void return_movies_by_length(){
 Collection<Movie> movies = ms.findMoviesByLength(119);
     List<Integer> movieIds = getMovieIds(movies);
     assertThat(movieIds, CoreMatchers.is(Arrays.asList(2,3,4,5,6)));
